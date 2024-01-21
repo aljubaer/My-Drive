@@ -16,8 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <SideNav>
-          </SideNav>
+          <SideNav />
           {children}
         </StyledComponentsRegistry>
       </body>
