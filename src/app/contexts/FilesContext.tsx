@@ -7,6 +7,7 @@ type FileContextProviderProps = {
 }
 
 type File = {
+    id: string;
     name: string;
     path: string;
     type: 'File' | 'Folder';
@@ -18,6 +19,7 @@ type FileContext = {
     // setFiles?: Dispatch<SetStateAction<File[] | []>>
     addFile: Function
     getFiles: Function
+    deleteFiles: Function
 }
 
 export const FileContext = createContext<FileContext | null>(null);
@@ -36,7 +38,9 @@ export default function FileContextProvider({ children }: FileContextProviderPro
     }, [files]);
 
     const addFile = (file: File) => {
-        setFiles(_files => [..._files, file])
+        const found = files.find(_file => _file.id === file.id);
+        if (found) alert("File already exist!");
+        else setFiles(_files => [..._files, file]);
     }
 
     const getFiles = (path: string): File[] => {
@@ -45,12 +49,17 @@ export default function FileContextProvider({ children }: FileContextProviderPro
         return _files;
     }
 
+    const deleteFiles = (id: string) => {
+        const _files = files.filter(file => file.id !== id);
+    }
+
     return (
         <FileContext.Provider
             value={{
                 files,
                 addFile,
-                getFiles
+                getFiles,
+                deleteFiles
             }}
         >
             {children}

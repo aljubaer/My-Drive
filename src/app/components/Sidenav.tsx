@@ -141,14 +141,14 @@ export default function SideNav() {
     const handleInput = (e: FormEvent<HTMLInputElement> | any) => {
         const currValue = inputRef.current?.value;
         if (currValue) {
-            addFile({ name: currValue, path: pathname || '', type: 'Folder' });
+            addFile({ id: pathname + currValue, name: currValue, path: pathname || '', type: 'Folder' });
         }
         closeModal();
     }
 
     const handleFileUpload = (e: FormEvent<HTMLInputElement> | any) => {
         const file = e.target.files[0];
-        addFile({ name: file.name, path: pathname || '', type: 'Folder' });
+        addFile({ id: pathname + file.name, name: file.name, path: pathname || '', type: 'Folder' });
     }
 
     return <>
