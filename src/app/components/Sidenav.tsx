@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import { VscAdd } from "react-icons/vsc";
-import { PiFileArrowUpBold, PiFolderNotchPlusBold } from "react-icons/pi";
+import { PiFolderNotchPlusBold } from "react-icons/pi";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useFileContext } from "../contexts/FilesContext";
 import { usePathname } from "next/navigation";
@@ -141,14 +141,14 @@ export default function SideNav() {
     const handleInput = (e: FormEvent<HTMLInputElement> | any) => {
         const currValue = inputRef.current?.value;
         if (currValue) {
-            // console.log(pathname);
-            addFile({ name: currValue, path: pathname, type: 'Folder' });
+            addFile({ name: currValue, path: pathname || '', type: 'Folder' });
         }
         closeModal();
     }
 
     const handleFileUpload = (e: FormEvent<HTMLInputElement> | any) => {
-        console.log(e.target.files[0]);
+        const file = e.target.files[0];
+        addFile({ name: file.name, path: pathname || '', type: 'Folder' });
     }
 
     return <>
@@ -169,10 +169,6 @@ export default function SideNav() {
                 <PiFolderNotchPlusBold size={16} />
                 <span style={{ marginLeft: 4 }}> New Folder </span>
             </CreateFolderButton>
-            {/* <CreateFolderButton>
-                <PiFileArrowUpBold size={16} />
-                <span style={{ marginLeft: 4 }}> Upload File </span>
-            </CreateFolderButton> */}
             <FileInput type="file" id="file" onChange={handleFileUpload} />
         </SideNavStyles>
     </>

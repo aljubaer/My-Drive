@@ -9,7 +9,7 @@ type FileContextProviderProps = {
 type File = {
     name: string;
     path: string;
-    type: string;
+    type: 'File' | 'Folder';
     contentPath?: string;
 }
 
@@ -17,6 +17,7 @@ type FileContext = {
     files: File[]
     // setFiles?: Dispatch<SetStateAction<File[] | []>>
     addFile: Function
+    getFiles: Function
 }
 
 const getInitialState = (): File[] | [] => {
@@ -47,7 +48,8 @@ export default function FileContextProvider({ children }: FileContextProviderPro
         <FileContext.Provider
             value={{
                 files,
-                addFile
+                addFile,
+                getFiles
             }}
         >
             {children}
