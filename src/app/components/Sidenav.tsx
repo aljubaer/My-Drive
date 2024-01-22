@@ -3,7 +3,8 @@
 import styled from "styled-components";
 import { VscAdd } from "react-icons/vsc";
 import { PiFileArrowUpBold, PiFolderNotchPlusBold } from "react-icons/pi";
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { useFileContext } from "../contexts/FilesContext";
 
 const SideNavStyles = styled.div`
 margin: 0;
@@ -73,6 +74,10 @@ export default function SideNav() {
 
     const modalRef = useRef(null);
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const { addFile } = useFileContext();
+
     const [isModalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
@@ -91,12 +96,20 @@ export default function SideNav() {
         setModalVisible(true);
     }
 
+    const handleInput = (e: FormEvent<HTMLInputElement> | any) => {
+        const currValue = inputRef.current?.value;
+        if (currValue) {
+            addFile( {name: currValue, path: currValue, type: 'Folder'} );
+        }
+        closeModal();
+    }
+
     return <>
         <Modal ref={modalRef} style={{ display: isModalVisible ? 'block' : 'none' }}>
             <ModalContent>
                 <CloseButton onClick={closeModal}> &times; </CloseButton>
-                <input />
-                <button>Create New Folder</button>
+                <input ref={inputRef} />
+                <button onClick={handleInput}>Create New Folder</button>
             </ModalContent>
         </Modal>
 
