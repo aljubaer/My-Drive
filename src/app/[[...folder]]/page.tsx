@@ -1,4 +1,5 @@
 "use client"
+
 import { usePathname } from "next/navigation";
 import { FaFolder, FaFile } from "react-icons/fa";
 
@@ -24,7 +25,7 @@ export default function Home({ params }: { params: { folder: string[] } }) {
     return (
         <main style={{ margin: '40px 20px', maxWidth: '60%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', height: '100%' }}>
             {files.map(file => (
-                <div style={{ padding: '0px 10px' }}>
+                <div key={_path + file.name} style={{ padding: '0px 10px' }}>
                     {file.type === 'Folder' ? <Content>
                         <FaFolder style={{ marginRight: 10 }} />
                         <Link href={`${_path}/${file.name}`} as={`${_path}/${file.name}`}>

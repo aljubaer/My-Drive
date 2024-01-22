@@ -20,14 +20,15 @@ type FileContext = {
     getFiles: Function
 }
 
-const getInitialState = (): File[] | [] => {
-    const files = localStorage.getItem("files");
-    return files ? JSON.parse(files) : []
-}
-
 export const FileContext = createContext<FileContext | null>(null);
 
 export default function FileContextProvider({ children }: FileContextProviderProps ) {
+
+    const getInitialState = (): File[] | [] => {
+        const files = typeof window !== "undefined" ? window.localStorage.getItem("files") : undefined;
+        return files ? JSON.parse(files) : []
+    }
+
     const [files, setFiles] = useState<File[] | []>(getInitialState());
 
     useEffect(() => {
