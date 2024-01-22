@@ -148,7 +148,7 @@ export default function SideNav() {
 
     const handleFileUpload = (e: FormEvent<HTMLInputElement> | any) => {
         const file = e.target.files[0];
-        addFile({ id: pathname + file.name, name: file.name, path: pathname || '', type: 'Folder' });
+        addFile({ id: pathname + file.name, name: file.name, path: pathname || '', type: 'File' });
     }
 
     return <>
