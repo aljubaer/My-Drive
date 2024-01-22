@@ -37,6 +37,12 @@ export default function FileContextProvider({ children }: FileContextProviderPro
         setFiles(_files => [..._files, file])
     }
 
+    const getFiles = (path: string): File[] => {
+        if (!path) return files;
+        const _files = files.filter(file => file.path === path);
+        return _files;
+    }
+
     return (
         <FileContext.Provider
             value={{

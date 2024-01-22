@@ -3,7 +3,6 @@ import "./globals.css";
 
 import StyledComponentsRegistry from "@/lib/registry";
 import SideNav from "./components/Sidenav";
-import styled from "styled-components";
 import FileContextProvider from "./contexts/FilesContext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,8 +17,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <StyledComponentsRegistry>
           <FileContextProvider>
-            <SideNav />
-            {children}
+            <div style={{ display: "flex", maxWidth: "100wh", minHeight: "100vh" }}>
+              <SideNav />
+              {children}
+            </div>
           </FileContextProvider>
         </StyledComponentsRegistry>
       </body>
